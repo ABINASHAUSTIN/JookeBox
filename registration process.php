@@ -1,20 +1,22 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
-    $password = password_hash($_POST["password"], PASSWORD_DEFAULT); // Hash the password
+    $password = password_hash($_POST["password"], PASSWORD_DEFAULT); 
     $email = $_POST["email"];
+    $phone number=$_POST["phone number"];
+    $address=$_POST["address"];
 
-    $conn = new mysqli("localhost:3306", "root", "root", "users");
+    $conn = new mysqli("localhost:3306", "root", "*pswd*", "users");
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO users (username, password, email,phone number,address) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $username, $password, $email);
+    $stmt->bind_param("sss", $username, $password, $email, $phone number,$address);
 
-    //header("Location: http://localhost:3306/registration.php");
+
 
     if ($stmt->execute()) {
         echo "Registration successful!";
